@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="deleteassetpapi-test-suite.xml" />
+	<munit:test name="deleteassetpapi-test-suite-deleteassetpapiFlowTest" doc:id="8c6df69f-4de2-4956-8934-06d4dcb7261b" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="91c7719f-cd3f-487e-999e-3cb18556e92d" processor="foreach">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="For Each" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="59cc6a04-8d26-44ac-bf3e-4193ca53edc9" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to deleteassetpapiFlow" doc:id="f2091fe2-0e61-4a38-9860-7ca9f254079a" name="deleteassetpapiFlow"/>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-that doc:name="Assert that" doc:id="ae376a55-aac4-4250-9e8f-a7ae6ee7c7e2" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="deleteassetpapi-test-suite-deleteassetpapiFlowTest1" doc:id="27a8ac35-7171-4d03-8815-9d3c312901e2" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="acdb281e-c17d-47e0-a6b9-9802ac28c559" processor="foreach">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="For Each" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="bea64213-4d04-4573-bafe-179605439e36" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<try doc:name="Try" doc:id="74b06b9e-dafa-4cb2-979c-3eb60390d0c6" >
+				<flow-ref doc:name="Flow-ref to deleteassetpapiFlow" doc:id="1b040542-d50b-4014-9658-1ecc52d90063" name="deleteassetpapiFlow" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="8b06f5f8-458c-40d3-9ed7-51efac81571a" type="ANY">
+						<logger level="INFO" doc:name="Logger" doc:id="a4400479-5c5d-4c23-97d6-fde5e63cd360" message="Continue"/>
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="d868dd34-2b7d-421c-9e40-b5136c8ff5a3" is="#[MunitTools::notNullValue()]" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+
+</mule>
